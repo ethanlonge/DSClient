@@ -7,12 +7,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Finds the first largest server type and then saves it, so it can allocate all jobs to any server
+ * of that type in a round-robin fashion
+ */
 public class LrrAlgorithm implements Algorithm {
     List<Server> lrrServers;
 
     int lrrIdx = 0;
     int lrrMax = 0;
 
+    /**
+     * Find the largest server type
+     * @param serverList List of servers in DS-Server on launch
+     * @return Server type (as a string)
+     */
     private String getLargestServerType(Server[] serverList) {
         var largestCore = 0;
         Server largestServ = null;
@@ -30,6 +39,7 @@ public class LrrAlgorithm implements Algorithm {
 
     @Override
     public void setup(Server[] serverList) {
+        // Get all servers of the largest server type and save it to a List for access later
         var largestServerType = getLargestServerType(serverList);
         lrrServers = new ArrayList<>();
 
@@ -44,6 +54,7 @@ public class LrrAlgorithm implements Algorithm {
 
     @Override
     public void run(DSClient client, Job job) throws IOException {
+        // Iterate over servers in the largest server type and schedule jobs
         if (lrrIdx == lrrMax)
             lrrIdx = 0;
 

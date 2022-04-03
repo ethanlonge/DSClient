@@ -17,6 +17,11 @@ public class DSClient {
         dout = new DataOutputStream(s.getOutputStream());
     }
 
+    /**
+     * Gets all servers from DS-Server
+     * @return List of valid servers
+     * @throws IOException Communication error with server
+     */
     public Server[] getAllServers() throws IOException {
         System.out.println("Getting all servers");
 
@@ -39,6 +44,16 @@ public class DSClient {
         return servers;
     }
 
+    /**
+     * Not implemented yet...
+     * TODO: Implement DSClient.getCapableServers method
+     *
+     * @param core Number of cores
+     * @param memory Memory Size (in MiB)
+     * @param disk Disk Size (in MiB)
+     * @return List of capable servers calculated by DS-Server
+     * @throws IOException Communication error with server
+     */
     public Server[] getCapableServers(int core, int memory, int disk) throws IOException
     {
         System.out.println("Getting capable servers");
@@ -63,6 +78,12 @@ public class DSClient {
         return servers;
     }
 
+    /**
+     * Schedules a Job on a Server using DS-Server
+     * @param job Job to schedule
+     * @param server Server to schedule Job on
+     * @throws IOException Communication error with server
+     */
     public void scheduleJob(Job job, Server server) throws IOException {
         System.out.println("Scheduling job (" + job.id + ") on server (" + server.type + " - " + server.id + ")");
 
@@ -73,6 +94,11 @@ public class DSClient {
         }
     }
 
+    /**
+     * Does the handshake process with the server so that the server can start processing requests
+     * @return Success handshaking
+     * @throws IOException Communication error with server
+     */
     public boolean doHandshake() throws IOException {
         var username = System.getProperty("user.name");
 
@@ -80,7 +106,8 @@ public class DSClient {
         dout.write("HELO\n".getBytes());
 
         System.out.println("Waiting for S Response");
-        while (!din.readLine().equals("OK")) { }
+        //noinspection StatementWithEmptyBody
+        while (!din.readLine().equals("OK")) { } // Could be redone for elegance, but oh well it works
         System.out.println("S: OK");
 
         System.out.println("C: AUTH " + username);
@@ -98,10 +125,18 @@ public class DSClient {
         return true;
     }
 
+    /**
+     * Sends a REDY command to server
+     * @throws IOException Communication error with server
+     */
     public void sendRedy() throws IOException {
         dout.write("REDY\n".getBytes());
     }
 
+    /**
+     * Sends a QUIT command to server
+     * @throws IOException Communication error with server
+     */
     public void quit() throws IOException {
         dout.write("QUIT\n".getBytes());
     }

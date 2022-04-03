@@ -11,6 +11,11 @@ public class Server {
     public int memory;
     public int storage;
 
+    /**
+     * Create a Server object from a string
+     * @param str Server string (from DS-Server)
+     * @return Created Server Object
+     */
     public static Server fromString(String str) {
         var vals = str.split(" ");
 

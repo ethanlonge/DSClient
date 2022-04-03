@@ -11,6 +11,11 @@ public class Job {
     public int memory;
     public int disk;
 
+    /**
+     * Create a Job object from a string
+     * @param str Job string (from DS-Server)
+     * @return Created Job Object
+     */
     public static Job fromString(String str)
     {
         var job = new Job();
