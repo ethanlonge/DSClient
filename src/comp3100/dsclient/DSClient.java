@@ -107,7 +107,7 @@ public class DSClient {
 
         System.out.println("Waiting for S Response");
         //noinspection StatementWithEmptyBody
-        while (!din.readLine().equals("OK")) { } // Could be redone for elegance, but oh well it works
+        while (!din.readLine().equals("OK")) { } // Could be redone for elegance, but oh well it works, TODO: make handshake elegant
         System.out.println("S: OK");
 
         System.out.println("C: AUTH " + username);

@@ -30,7 +30,7 @@ public class Main {
             var servers = client.getAllServers();
             algorithm.setup(servers);
 
-            while (!buf.equals("NONE")) {
+            while (!buf.equals("NONE")) { // TODO: Create a proper switching of server commands (potentially use enums and switch?)
                 if (buf.startsWith("JOB")) { // Get any Job Type and schedule it using the algorithm
                     // Job Execution
                     var job = Job.fromString(buf);
