@@ -82,16 +82,21 @@ public class DSClient {
      * Schedules a Job on a Server using DS-Server
      * @param job Job to schedule
      * @param server Server to schedule Job on
+     * @return Scheduling Successful
      * @throws IOException Communication error with server
      */
-    public void scheduleJob(Job job, Server server) throws IOException {
+    public boolean scheduleJob(Job job, Server server) throws IOException {
         System.out.println("Scheduling job (" + job.id + ") on server (" + server.type + " - " + server.id + ")");
 
         dout.write(("SCHD " + job.id + " " + server.type + " " + server.id + "\n").getBytes());
 
         if (din.readLine().startsWith("OK")) { // Clear out OK
             System.out.println("Scheduled job (" + job.id + ") successfully!");
+
+            return true;
         }
+
+        return false;
     }
 
     /**
