@@ -134,6 +134,15 @@ public class DSClient {
     }
 
     /**
+     * Reads line from Input
+     * @return Line of input
+     * @throws IOException Communication error with server
+     */
+    public String readLine() throws IOException {
+        return din.readLine();
+    }
+
+    /**
      * Sends a QUIT command to server
      * @throws IOException Communication error with server
      */

@@ -24,7 +24,7 @@ public class Main {
             }
 
             // Server sends Job first before you can query it at all >:(
-            var buf = client.din.readLine();
+            var buf = client.readLine();
 
             // Get list of available servers and pass it to the algorithm's Setup method
             var servers = client.getAllServers();
@@ -48,7 +48,7 @@ public class Main {
                     client.sendRedy();
                 }
 
-                buf = client.din.readLine(); // Read next server event
+                buf = client.readLine(); // Read next server event
             }
 
             System.out.println("Completed all jobs!");
