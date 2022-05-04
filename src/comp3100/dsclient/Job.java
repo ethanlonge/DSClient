@@ -28,10 +28,10 @@ public class Job {
         }
 
         job.id = Integer.parseInt(parts[2]);
-        job.estRuntime = Integer.parseInt(parts[1]);
-        job.cores = Integer.parseInt(parts[3]);
-        job.memory = Integer.parseInt(parts[4]);
-        job.disk = Integer.parseInt(parts[5]);
+        job.estRuntime = Integer.parseInt(parts[3]);
+        job.cores = Integer.parseInt(parts[4]);
+        job.memory = Integer.parseInt(parts[5]);
+        job.disk = Integer.parseInt(parts[6]);
 
         return job;
     }

@@ -3,6 +3,7 @@ package comp3100.dsclient;
 import comp3100.dsclient.algorithmTypes.Algorithm;
 import comp3100.dsclient.algorithmTypes.AtlAlgorithm;
 import comp3100.dsclient.algorithmTypes.LrrAlgorithm;
+import comp3100.dsclient.algorithmTypes.FFAlgorithm;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -78,6 +79,10 @@ public class Main {
                     }
                     case "atl" -> {
                         Main.run(new AtlAlgorithm());
+                        System.exit(0);
+                    }
+                    case "ff" -> {
+                        Main.run(new FFAlgorithm());
                         System.exit(0);
                     }
                     default -> { // Algorithm invalid

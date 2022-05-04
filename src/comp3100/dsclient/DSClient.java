@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class DSClient {
     Socket s;
@@ -40,6 +41,7 @@ public class DSClient {
         }
 
         dout.write("OK\n".getBytes());
+        din.readLine(); // Clear '.' after getting servers
 
         return servers;
     }
@@ -62,18 +64,18 @@ public class DSClient {
 
         var metadata = din.readLine().split(" ");
 
+        dout.write("OK\n".getBytes());
+
         var maxServerLen = Integer.parseInt(metadata[1]);
 
         var servers = new Server[maxServerLen];
 
-        var i = 0;
-        var buf = "";
-        while (!(buf = din.readLine()).equals("")) {
-            servers[i] = (Server.fromString(buf));
-            i++;
+        for (var i = 0; i < maxServerLen; i++) {
+            servers[i] = Server.fromString(din.readLine());
         }
 
         dout.write("OK\n".getBytes());
+        din.readLine(); // Clear '.' after getting servers
 
         return servers;
     }
