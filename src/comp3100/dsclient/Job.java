@@ -7,6 +7,7 @@ public class Job {
     public int submitTime;
     public int estRuntime;
 
+
     public int cores;
     public int memory;
     public int disk;
@@ -27,6 +28,7 @@ public class Job {
             case "JOBP" -> job.type = JobType.FAILED;
         }
 
+        job.submitTime = Integer.parseInt(parts[1]);
         job.id = Integer.parseInt(parts[2]);
         job.estRuntime = Integer.parseInt(parts[3]);
         job.cores = Integer.parseInt(parts[4]);
