@@ -5,7 +5,7 @@ import comp3100.dsclient.Job;
 import comp3100.dsclient.Server;
 import java.io.IOException;
 
-public class FFAlgorithm implements Algorithm {
+public class FCAlgorithm implements Algorithm {
 
     @Override
     public void setup(Server[] serverList) {
