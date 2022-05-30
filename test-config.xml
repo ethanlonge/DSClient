@@ -6,8 +6,8 @@
   </servers>
   <jobs>
     <job id="0" type="short" submitTime="12" estRunTime="76" cores="3" memory="15300" disk="33000" />
-    <job id="1" type="short" submitTime="17" estRunTime="133" cores="1" memory="1900" disk="3100" />
-    <job id="2" type="medium" submitTime="60" estRunTime="1000" cores="2" memory="700" disk="1300" />
+    <job id="1" type="medium" submitTime="60" estRunTime="1000" cores="2" memory="700" disk="1300" />
+    <job id="2" type="short" submitTime="17" estRunTime="133" cores="1" memory="1900" disk="3100" />
     <job id="3" type="instant" submitTime="87" estRunTime="1" cores="2" memory="1600" disk="900" />
   </jobs>
 </config>
