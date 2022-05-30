@@ -3,7 +3,8 @@ package comp3100.dsclient;
 import comp3100.dsclient.algorithmTypes.Algorithm;
 import comp3100.dsclient.algorithmTypes.AtlAlgorithm;
 import comp3100.dsclient.algorithmTypes.LrrAlgorithm;
-import comp3100.dsclient.algorithmTypes.FFAlgorithm;
+import comp3100.dsclient.algorithmTypes.FCAlgorithm;
+import comp3100.dsclient.algorithmTypes.MyAlgorithm;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -36,8 +37,8 @@ public class Main {
                     // Job Execution
                     var job = Job.fromString(buf);
 
-                    if (job.type != JobType.NORMAL)
-                        continue;
+//                    if (job.type != JobType.NORMAL)
+//                        continue;
 
                     System.out.println("New Job (" + job.id + ")!");
 
@@ -46,6 +47,7 @@ public class Main {
                     client.sendRedy();
                 }
                 if (buf.startsWith("JCPL")) { // Ignore Job statuses for Stage 1
+                    algorithm.jobCompletion(Integer.parseInt(buf.split(" ")[2]));
                     client.sendRedy();
                 }
 
@@ -81,8 +83,12 @@ public class Main {
                         Main.run(new AtlAlgorithm());
                         System.exit(0);
                     }
-                    case "ff" -> {
-                        Main.run(new FFAlgorithm());
+                    case "fc" -> {
+                        Main.run(new FCAlgorithm());
+                        System.exit(0);
+                    }
+                    case "my" -> {
+                        Main.run(new MyAlgorithm());
                         System.exit(0);
                     }
                     default -> { // Algorithm invalid
@@ -92,7 +98,7 @@ public class Main {
                 }
             }
         } else { // Default algorithm = LRR
-            Main.run(new LrrAlgorithm());
+            Main.run(new MyAlgorithm());
         }
     }
 }

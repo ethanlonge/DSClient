@@ -11,4 +11,8 @@ public interface Algorithm {
     public void setup(Server[] serverList);
 
     public void run(DSClient client, Job job) throws IOException;
+
+    public default void jobCompletion(int jobId) {
+
+    }
 }
