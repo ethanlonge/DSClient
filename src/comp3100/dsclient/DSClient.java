@@ -32,6 +32,11 @@ public class DSClient {
 
         dout.write("OK\n".getBytes());
 
+        if (metadata[0].equals(".")) { // Check if no servers
+            dout.write("OK\n".getBytes());
+            return new Server[]{};
+        }
+
         var maxServerLen = Integer.parseInt(metadata[1]);
 
         var servers = new Server[maxServerLen];
@@ -66,6 +71,10 @@ public class DSClient {
 
         dout.write("OK\n".getBytes());
 
+        if (metadata[0].equals(".")) { // Check if no available servers
+            return new Server[]{};
+        }
+
         var maxServerLen = Integer.parseInt(metadata[1]);
 
         var servers = new Server[maxServerLen];
@@ -79,6 +88,35 @@ public class DSClient {
 
         return servers;
     }
+//
+//    public Server[] getAvailableServers(int core, int memory, int disk) throws IOException
+//    {
+//        System.out.println("Getting available servers");
+//
+//        dout.write(("GETS Avail " + core + " " + memory + " " + disk + "\n").getBytes());
+//
+//        var metadata = din.readLine().split(" ");
+//
+//        dout.write("OK\n".getBytes());
+//
+//        if (metadata[0].equals(".")) { // Check if no servers
+//            din.readLine(); // Clear '.' after getting servers
+//            return new Server[]{};
+//        }
+//
+//        var maxServerLen = Integer.parseInt(metadata[1]);
+//
+//        var servers = new Server[maxServerLen];
+//
+//        for (var i = 0; i < maxServerLen; i++) {
+//            servers[i] = Server.fromString(din.readLine());
+//        }
+//
+//        dout.write("OK\n".getBytes());
+//        din.readLine(); // Clear '.' after getting servers
+//
+//        return servers;
+//    }
 
     /**
      * Schedules a Job on a Server using DS-Server
@@ -94,6 +132,48 @@ public class DSClient {
 
         if (din.readLine().startsWith("OK")) { // Clear out OK
             System.out.println("Scheduled job (" + job.id + ") successfully!");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean rescheduleJob(Job job, Server oldServer, Server newServer) throws IOException {
+        System.out.println("Rescheduling job (" + job.id + ") on server (" + newServer.type + " - " + newServer.id + ")");
+
+        dout.write(("MIGJ " + job.id + " " + oldServer.type + " " + oldServer.id + " " + newServer.type + "" + newServer.id + "\n").getBytes());
+
+        if (din.readLine().startsWith("OK")) { // Clear out OK
+            System.out.println("Rescheduled job (" + job.id + ") successfully!");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean terminateServer(Server server) throws IOException {
+        System.out.println("Terminating server (" + server.type + " - " + server.id + ")");
+
+        dout.write(("TERM " + server.type + " " + server.id + "\n").getBytes());
+
+        if (din.readLine().startsWith("OK")) { // Clear out OK
+            System.out.println("Terminated server (" + server.type + "-" + server.id + ") successfully!");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean killJob(Job job) throws IOException {
+        System.out.println("Killing job (" + job.id + ")");
+
+        dout.write(("KILLJ " + job.id + "\n").getBytes());
+
+        if (din.readLine().startsWith("OK")) { // Clear out OK
+            System.out.println("Killed job (" + job.id + ") successfully!");
 
             return true;
         }
